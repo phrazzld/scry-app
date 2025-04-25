@@ -11,15 +11,65 @@
         2. `package.json` exists with basic Expo setup
     - **Depends‑on:** none
 
-- [ ] **T002 · Chore · P1: install core dependencies**
-    - **Context:** PLAN.md Section 1, Project Setup
+- [x] **T002-A · Chore · P1: clean dependency installation state**
+    - **Context:** Prevent dependency conflicts by starting fresh
     - **Action:**
-        1. Run `npm install @react-navigation/native @react-navigation/stack zustand styled-components @types/styled-components moti date-fns uuid @types/uuid`
-        2. Run `npx expo install react-native-screens react-native-safe-area-context react-native-reanimated react-native-gesture-handler @expo/vector-icons`
+        1. Run `rm -rf node_modules package-lock.json`
     - **Done‑when:**
-        1. All dependencies added to `package.json`
-        2. `npm install` completes without errors
+        1. `node_modules` directory and `package-lock.json` file are removed
     - **Depends‑on:** [T001]
+
+- [x] **T002-B · Chore · P1: reinstall base dependencies**
+    - **Context:** Restore the base project dependencies 
+    - **Action:**
+        1. Run `npm install`
+    - **Done‑when:**
+        1. Base dependencies (expo, react, react-native) are reinstalled
+        2. No errors appear during installation
+    - **Depends‑on:** [T002-A]
+
+- [x] **T002-C · Chore · P1: install expo native dependencies**
+    - **Context:** Install native dependencies using expo's installer for compatibility
+    - **Action:**
+        1. Run `npx expo install react-native-screens react-native-safe-area-context react-native-reanimated react-native-gesture-handler @expo/vector-icons`
+    - **Done‑when:**
+        1. All native dependencies added to `package.json` with Expo-compatible versions
+        2. No dependency conflict warnings shown
+    - **Depends‑on:** [T002-B]
+
+- [x] **T002-D · Chore · P1: install JavaScript dependencies**
+    - **Context:** Install navigation, state management, animation, and utility libraries
+    - **Action:**
+        1. Run `npm install @react-navigation/native @react-navigation/stack zustand moti date-fns uuid`
+        2. Run `npm install --save-dev @types/uuid`
+    - **Done‑when:**
+        1. All packages added to `package.json`
+        2. No peer dependency conflicts appear
+    - **Depends‑on:** [T002-C]
+
+- [x] **T002-E · Chore · P1: install styled-components with compatibility fix**
+    - **Context:** Install compatible version of styled-components to avoid React 19.x conflict
+    - **Action:**
+        1. Run `npm install styled-components@^5.3.0`
+        2. Run `npm install --save-dev @types/styled-components`
+        3. Run `npm install react-dom@18.3.1`
+    - **Done‑when:**
+        1. `styled-components` v5.x is added to dependencies
+        2. `@types/styled-components` is added to devDependencies
+        3. `react-dom@18.3.1` (matching React version) is installed
+    - **Depends‑on:** [T002-D]
+
+- [x] **T002-F · Chore · P1: verify installation and mark T002 complete**
+    - **Context:** Verify all dependencies installed correctly without conflicts
+    - **Action:**
+        1. Run `npm ls react react-dom styled-components` to check versions
+        2. Test with `npx expo start` to confirm no dependency errors
+        3. Mark T002 as complete in TODO.md
+    - **Done‑when:**
+        1. `npm ls` shows no unresolved conflicts
+        2. `expo start` launches without package errors
+        3. All required dependencies successfully installed
+    - **Depends‑on:** [T002-E]
 
 - [ ] **T003 · Chore · P1: install dev dependencies**
     - **Context:** PLAN.md Section 1, Project Setup
