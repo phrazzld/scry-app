@@ -79,7 +79,7 @@
         1. All dev dependencies added to `package.json`
     - **Depends‑on:** [T001]
 
-- [ ] **T004 · Chore · P1: configure reanimated plugin**
+- [x] **T004 · Chore · P1: configure reanimated plugin**
     - **Context:** PLAN.md Section 1, Configure Reanimated
     - **Action:**
         1. Create/update `babel.config.js` to include `react-native-reanimated/plugin`
