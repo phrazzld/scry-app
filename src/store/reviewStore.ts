@@ -1,6 +1,7 @@
 import { create } from 'zustand';
-import { Card } from '../types';
+import { Card, Memo } from '../types';
 import { mockCards } from '../api/mocks';
+import { v4 as uuidv4 } from 'uuid';
 
 interface ReviewState {
   cards: Card[];
@@ -9,6 +10,7 @@ interface ReviewState {
   isDeckComplete: boolean;
   showMemoModal: boolean;
   showEditModal: boolean;
+  memos: Memo[];
 
   // Actions
   initializeDeck: () => void;
@@ -32,6 +34,7 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
   isDeckComplete: false,
   showMemoModal: false,
   showEditModal: false,
+  memos: [],
 
   // Core store actions
   initializeDeck: () => {
@@ -39,6 +42,7 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
       cards: [...mockCards],
       currentIndex: 0,
       isDeckComplete: false,
+      memos: [],
     });
   },
 
@@ -76,23 +80,68 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
   setShowMemoModal: show => set({ showMemoModal: show }),
   setShowEditModal: show => set({ showEditModal: show }),
 
-  submitMemo: _text => {
-    // This will be implemented in T013
-    console.warn('Placeholder: Submit memo action will be implemented in T013');
+  submitMemo: text => {
+    if (!text.trim()) return;
+
+    const newMemo: Memo = {
+      id: uuidv4(),
+      text: text.trim(),
+      createdAt: new Date().toISOString(),
+    };
+
+    set(state => ({
+      memos: [...state.memos, newMemo],
+      showMemoModal: false,
+    }));
   },
 
-  editCard: (_cardId, _newQuestion) => {
-    // This will be implemented in T013
-    console.warn('Placeholder: Edit card action will be implemented in T013');
+  editCard: (cardId, newQuestion) => {
+    if (!newQuestion.trim()) return;
+
+    set(state => ({
+      cards: state.cards.map(card =>
+        card.id === cardId ? { ...card, question: newQuestion.trim() } : card
+      ),
+      showEditModal: false,
+    }));
   },
 
-  deleteCard: _cardId => {
-    // This will be implemented in T013
-    console.warn('Placeholder: Delete card action will be implemented in T013');
+  deleteCard: cardId => {
+    set(state => {
+      const updatedCards = state.cards.filter(card => card.id !== cardId);
+
+      // Adjust current index if needed
+      let newIndex = state.currentIndex;
+      if (newIndex >= updatedCards.length) {
+        newIndex = Math.max(0, updatedCards.length - 1);
+      }
+
+      const isDeckComplete = updatedCards.length === 0;
+
+      return {
+        cards: updatedCards,
+        currentIndex: newIndex,
+        isDeckComplete,
+      };
+    });
   },
 
-  postponeCard: _cardId => {
-    // This will be implemented in T013
-    console.warn('Placeholder: Postpone card action will be implemented in T013');
+  postponeCard: cardId => {
+    set(state => {
+      const currentCard = state.cards.find(card => card.id === cardId);
+      if (!currentCard) return {};
+
+      // Remove the current card from the deck
+      const remainingCards = state.cards.filter(card => card.id !== cardId);
+
+      // Add the card to the end of the deck
+      const updatedCards = [...remainingCards, currentCard];
+
+      return {
+        cards: updatedCards,
+        // Move to the next card (which is now at the current index since we removed the current card)
+        currentIndex: state.currentIndex >= remainingCards.length ? 0 : state.currentIndex,
+      };
+    });
   },
 }));

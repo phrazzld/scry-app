@@ -183,7 +183,7 @@
     2. Card deck can be initialized and traversed
   - **Depends‑on:** [T011]
 
-- [ ] **T013 · Feature · P2: implement modal and edit actions**
+- [x] **T013 · Feature · P2: implement modal and edit actions**
   - **Context:** PLAN.md Section 5, Zustand Store modal actions
   - **Action:**
     1. Implement `setShowMemoModal`, `setShowEditModal`, `submitMemo`, `editCard`, `deleteCard`, and `postponeCard` actions
