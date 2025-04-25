@@ -264,7 +264,7 @@
     2. Submit action works correctly
   - **Depends‑on:** [T013]
 
-- [ ] **T020 · Feature · P2: implement EditCardModal component**
+- [x] **T020 · Feature · P2: implement EditCardModal component**
   - **Context:** PLAN.md Section 7, EditCardModal Component
   - **Action:**
     1. Create `src/components/features/EditCardModal.tsx`
