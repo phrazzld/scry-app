@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { View } from 'react-native';
 import styled from 'styled-components/native';
 import { Card } from '../../types';
 import ChoiceButton, { ButtonState } from './ChoiceButton';
 import { MotiView } from 'moti';
+import { AnimatePresence } from 'moti/build';
 import { useReviewStore } from '../../store/reviewStore';
 
 const CardContainer = styled(MotiView)`
@@ -10,27 +12,43 @@ const CardContainer = styled(MotiView)`
   border: 1px solid ${({ theme }) => theme.colors.silverGray};
   border-radius: 12px;
   padding: ${({ theme }) => theme.spacing(4)}px;
-  shadow-opacity: 0.1;
-  shadow-radius: 4px;
-  shadow-offset: 0px 2px;
+  shadow-opacity: 0.15;
+  shadow-radius: 6px;
+  shadow-offset: 0px 3px;
   shadow-color: #000;
   width: 100%;
+  elevation: 4;
+`;
+
+const QuestionContainer = styled(MotiView)`
+  margin-bottom: ${({ theme }) => theme.spacing(3)}px;
 `;
 
 const QuestionText = styled.Text`
   color: ${({ theme }) => theme.colors.inkBlack};
   font-size: ${({ theme }) => theme.typography.heading}px;
-  margin-bottom: ${({ theme }) => theme.spacing(3)}px;
 `;
 
 interface CardViewProps {
   card: Card;
 }
 
+/**
+ * CardView component for displaying card questions and choices
+ * Enhanced with animations for card transitions and interactions
+ */
 export default function CardView({ card }: CardViewProps) {
   const { answerCard } = useReviewStore();
   const [selectedChoice, setSelectedChoice] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<'correct' | 'incorrect' | null>(null);
+  const [exitCard, setExitCard] = useState(false);
+
+  // Reset state when card changes
+  useEffect(() => {
+    setSelectedChoice(null);
+    setFeedback(null);
+    setExitCard(false);
+  }, [card.id]);
 
   const handleChoiceSelect = (choiceId: string) => {
     setSelectedChoice(choiceId);
@@ -42,7 +60,12 @@ export default function CardView({ card }: CardViewProps) {
     // Show feedback
     setFeedback(isCorrect ? 'correct' : 'incorrect');
 
-    // Tell store
+    // Trigger exit animation after a brief delay
+    setTimeout(() => {
+      setExitCard(true);
+    }, 1000);
+
+    // Tell store after showing feedback
     answerCard(card.id, choiceId);
   };
 
@@ -65,22 +88,52 @@ export default function CardView({ card }: CardViewProps) {
   };
 
   return (
-    <CardContainer
-      from={{ opacity: 0, translateY: 20 }}
-      animate={{ opacity: 1, translateY: 0 }}
-      transition={{ type: 'timing', duration: 300 }}
-    >
-      <QuestionText>{card.question}</QuestionText>
+    <AnimatePresence>
+      <CardContainer
+        key={card.id} // Key ensures proper remounting when card changes
+        from={{ 
+          opacity: 0, 
+          translateY: 20,
+          scale: 0.95,
+          rotate: '0.5deg',
+        }}
+        animate={{ 
+          opacity: exitCard ? 0 : 1, 
+          translateY: exitCard ? -20 : 0,
+          scale: exitCard ? 0.95 : 1,
+          rotate: exitCard ? '-0.5deg' : '0deg',
+        }}
+        exit={{ 
+          opacity: 0, 
+          translateY: -40,
+          scale: 0.9
+        }}
+        transition={{ 
+          type: 'spring',
+          damping: 15,
+          mass: 1,
+          stiffness: 120,
+        }}
+      >
+        <QuestionContainer
+          from={{ opacity: 0, translateY: 10 }}
+          animate={{ opacity: 1, translateY: 0 }}
+          transition={{ type: 'timing', duration: 300, delay: 150 }}
+        >
+          <QuestionText>{card.question}</QuestionText>
+        </QuestionContainer>
 
-      {card.choices.map(choice => (
-        <ChoiceButton
-          key={choice.id}
-          text={choice.text}
-          onPress={() => handleChoiceSelect(choice.id)}
-          state={getButtonState(choice.id)}
-          disabled={selectedChoice !== null}
-        />
-      ))}
-    </CardContainer>
+        {card.choices.map((choice, index) => (
+          <ChoiceButton
+            key={choice.id}
+            text={choice.text}
+            onPress={() => handleChoiceSelect(choice.id)}
+            state={getButtonState(choice.id)}
+            disabled={selectedChoice !== null}
+            index={index} // Pass index for staggered animation
+          />
+        ))}
+      </CardContainer>
+    </AnimatePresence>
   );
 }

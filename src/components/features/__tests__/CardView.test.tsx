@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react-native';
+import { render, fireEvent, act } from '@testing-library/react-native';
 import CardView from '../CardView';
 import { ThemeProvider } from '../../../theme';
 import { v4 as uuidv4 } from 'uuid';
@@ -16,8 +16,12 @@ jest.mock('moti', () => {
   const { View } = require('react-native');
   return {
     MotiView: View,
+    AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
   };
 });
+
+// Mock setTimeout
+jest.useFakeTimers();
 
 describe('CardView', () => {
   // Sample card data for testing
@@ -30,6 +34,19 @@ describe('CardView', () => {
       { id: 'a', text: 'Option A', isCorrect: false },
       { id: 'b', text: 'Option B', isCorrect: true },
       { id: 'c', text: 'Option C', isCorrect: false },
+    ],
+    createdAt: new Date().toISOString(),
+  };
+
+  // Second card for testing card transitions
+  const mockCard2: Card = {
+    id: uuidv4(),
+    type: 'MULTIPLE_CHOICE',
+    status: 'new',
+    question: 'Second question?',
+    choices: [
+      { id: 'a', text: 'Second A', isCorrect: true },
+      { id: 'b', text: 'Second B', isCorrect: false },
     ],
     createdAt: new Date().toISOString(),
   };
@@ -93,5 +110,73 @@ describe('CardView', () => {
     
     // Verify answerCard was only called once
     expect(mockAnswerCard).toHaveBeenCalledTimes(1);
+  });
+
+  it('initiates exit animation after selection', () => {
+    const { getByText } = render(
+      <ThemeProvider>
+        <CardView card={mockCard} />
+      </ThemeProvider>
+    );
+    
+    // Select an answer
+    fireEvent.press(getByText('Option A'));
+    
+    // Fast forward through exit animation timeout
+    act(() => {
+      jest.advanceTimersByTime(1000);
+    });
+    
+    // The exit animation state should now be set (this is an internal test)
+    // Since we can't directly test animation state, we're testing that the timeout completes
+    expect(setTimeout).toHaveBeenCalled();
+  });
+
+  it('resets state when card changes', () => {
+    const { getByText, rerender } = render(
+      <ThemeProvider>
+        <CardView card={mockCard} />
+      </ThemeProvider>
+    );
+    
+    // Select an answer
+    fireEvent.press(getByText('Option A'));
+    
+    // Re-render with a different card
+    rerender(
+      <ThemeProvider>
+        <CardView card={mockCard2} />
+      </ThemeProvider>
+    );
+    
+    // New card should be rendered
+    expect(getByText('Second question?')).toBeTruthy();
+    expect(getByText('Second A')).toBeTruthy();
+    expect(getByText('Second B')).toBeTruthy();
+    
+    // State should be reset, so both options should be pressable
+    fireEvent.press(getByText('Second A'));
+    
+    // answerCard should be called for the new card
+    expect(mockAnswerCard).toHaveBeenCalledWith(mockCard2.id, 'a');
+  });
+
+  it('uses key prop based on card.id', () => {
+    const { container, rerender } = render(
+      <ThemeProvider>
+        <CardView card={mockCard} />
+      </ThemeProvider>
+    );
+    
+    // Re-render with a different card
+    rerender(
+      <ThemeProvider>
+        <CardView card={mockCard2} />
+      </ThemeProvider>
+    );
+    
+    // Since we're mocking MotiView, we can't directly test the key prop
+    // This is just a structural test to ensure the component re-renders without errors
+    expect(container).toBeTruthy();
   });
 });

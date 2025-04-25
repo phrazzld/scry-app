@@ -303,7 +303,7 @@
     3. Store initializes on launch
   - **Depends‑on:** [T005, T010, T012, T014, T021]
 
-- [ ] **T023 · Feature · P2: implement card animations**
+- [x] **T023 · Feature · P2: implement card animations**
 
   - **Context:** PLAN.md Section 9, Animation Strategy
   - **Action:**
