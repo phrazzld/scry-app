@@ -345,7 +345,7 @@
     2. Animations still function as intended
   - **Depends‑on:** [T025]
 
-- [ ] **T027 · Bug · P1: refactor ChoiceButton styled MotiView components**
+- [x] **T027 · Bug · P1: refactor ChoiceButton styled MotiView components**
   - **Context:** Fix React hook errors caused by styled MotiView in ChoiceButton
   - **Action:**
     1. Refactor AnimatedContainer in ChoiceButton.tsx to use composition instead of direct styling

@@ -7,8 +7,8 @@ import { useTheme } from 'styled-components/native';
 // Define the possible button states
 export type ButtonState = 'default' | 'selected' | 'correct' | 'incorrect';
 
-// Styled container for the button using MotiView for animations
-const AnimatedContainer = styled(MotiView)`
+// Use regular styled View instead of styled MotiView to fix hook errors
+const StyledButtonContainer = styled.View`
   margin-bottom: ${({ theme }) => theme.spacing(1)}px;
   border-radius: 8px;
   overflow: hidden;
@@ -84,45 +84,48 @@ export default function ChoiceButton({
   };
 
   return (
-    <AnimatedContainer
-      from={{
-        opacity: 0,
-        translateY: 10,
-        scale: 0.96,
-        borderColor: theme.colors.silverGray,
-        backgroundColor: 'transparent',
-      }}
-      animate={{
-        opacity: 1,
-        translateY: 0,
-        scale: isPressed ? 0.98 : 1,
-        borderColor: getBorderColor(),
-        backgroundColor: getBackgroundColor(),
-      }}
-      transition={{
-        type: state === 'default' ? 'timing' : 'spring',
-        delay: index * 100, // Stagger effect based on index
-        duration: 250,
-        // Add bounce effect for feedback states
-        damping: state === 'correct' || state === 'incorrect' ? 15 : 20,
-        mass: state === 'correct' ? 1.2 : 1,
-        stiffness: state === 'correct' ? 120 : 100,
-      }}
-      style={{
-        borderWidth: 1,
-      }}
-    >
-      <Pressable
-        onPress={disabled ? undefined : onPress}
-        onPressIn={() => !disabled && setIsPressed(true)}
-        onPressOut={() => setIsPressed(false)}
-        disabled={disabled}
-        style={{ width: '100%' }}
+    <StyledButtonContainer>
+      <MotiView
+        from={{
+          opacity: 0,
+          translateY: 10,
+          scale: 0.96,
+          borderColor: theme.colors.silverGray,
+          backgroundColor: 'transparent',
+        }}
+        animate={{
+          opacity: 1,
+          translateY: 0,
+          scale: isPressed ? 0.98 : 1,
+          borderColor: getBorderColor(),
+          backgroundColor: getBackgroundColor(),
+        }}
+        transition={{
+          type: state === 'default' ? 'timing' : 'spring',
+          delay: index * 100, // Stagger effect based on index
+          duration: 250,
+          // Add bounce effect for feedback states
+          damping: state === 'correct' || state === 'incorrect' ? 15 : 20,
+          mass: state === 'correct' ? 1.2 : 1,
+          stiffness: state === 'correct' ? 120 : 100,
+        }}
+        style={{
+          borderWidth: 1,
+          width: '100%',
+        }}
       >
-        <ButtonContent disabled={disabled}>
-          <Label state={state}>{text}</Label>
-        </ButtonContent>
-      </Pressable>
-    </AnimatedContainer>
+        <Pressable
+          onPress={disabled ? undefined : onPress}
+          onPressIn={() => !disabled && setIsPressed(true)}
+          onPressOut={() => setIsPressed(false)}
+          disabled={disabled}
+          style={{ width: '100%' }}
+        >
+          <ButtonContent disabled={disabled}>
+            <Label state={state}>{text}</Label>
+          </ButtonContent>
+        </Pressable>
+      </MotiView>
+    </StyledButtonContainer>
   );
 }
