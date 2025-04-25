@@ -87,7 +87,7 @@
         1. `babel.config.js` matches the configuration in PLAN.md
     - **Depends‑on:** [T002]
 
-- [ ] **T005 · Chore · P1: update app entry point for gesture handler**
+- [x] **T005 · Chore · P1: update app entry point for gesture handler**
     - **Context:** PLAN.md Section 1, Update App Entry Point
     - **Action:**
         1. Add `import 'react-native-gesture-handler';` as the first line in `App.tsx`
