@@ -194,7 +194,7 @@
 
 ## Navigation
 
-- [ ] **T014 · Feature · P1: implement app navigation**
+- [x] **T014 · Feature · P1: implement app navigation**
   - **Context:** PLAN.md Section 6, Navigation
   - **Action:**
     1. Create `src/navigation/AppNavigator.tsx`
