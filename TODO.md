@@ -276,7 +276,7 @@
 
 ## Screens
 
-- [ ] **T021 · Feature · P1: implement ReviewScreen component**
+- [x] **T021 · Feature · P1: implement ReviewScreen component**
   - **Context:** PLAN.md Section 7, ReviewScreen Component
   - **Action:**
     1. Create `src/screens/ReviewScreen.tsx`
