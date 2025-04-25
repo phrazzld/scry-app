@@ -26,7 +26,8 @@ const StyledQuestionContainer = styled.View`
 
 const QuestionText = styled.Text`
   color: ${({ theme }) => theme.colors.inkBlack};
-  font-size: ${({ theme }) => theme.typography.heading}px;
+  font-size: ${({ theme }) => theme.typography.size.xl}px;
+  font-weight: ${({ theme }) => theme.typography.weight.bold};
 `;
 
 interface CardViewProps {
@@ -74,7 +75,7 @@ export default function CardView({ card }: CardViewProps) {
     if (selectedChoice === choiceId) {
       return feedback || 'selected';
     }
-    
+
     // If user has made a selection and this wasn't the choice
     if (selectedChoice !== null) {
       // If this is the correct answer, highlight it
@@ -83,7 +84,7 @@ export default function CardView({ card }: CardViewProps) {
         return 'correct';
       }
     }
-    
+
     return 'default';
   };
 
@@ -92,19 +93,19 @@ export default function CardView({ card }: CardViewProps) {
     <StyledCardContainer>
       <MotiView
         key={card.id} // Key ensures proper remounting when card changes
-        from={{ 
-          opacity: 0, 
+        from={{
+          opacity: 0,
           translateY: 20,
           scale: 0.95,
           rotate: '0.5deg',
         }}
-        animate={{ 
-          opacity: exitCard ? 0 : 1, 
+        animate={{
+          opacity: exitCard ? 0 : 1,
           translateY: exitCard ? -20 : 0,
           scale: exitCard ? 0.95 : 1,
           rotate: exitCard ? '-0.5deg' : '0deg',
         }}
-        transition={{ 
+        transition={{
           type: 'spring',
           damping: 15,
           mass: 1,

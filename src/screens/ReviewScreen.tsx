@@ -26,7 +26,7 @@ const ActionContainer = styled.View`
 
 const ActionLabel = styled.Text`
   color: ${({ theme }) => theme.colors.slateGray};
-  font-size: ${({ theme }) => theme.typography.small}px;
+  font-size: ${({ theme }) => theme.typography.size.sm}px;
   margin-top: ${({ theme }) => theme.spacing(1)}px;
 `;
 
@@ -38,10 +38,11 @@ const EmptyStateContainer = styled.View`
 `;
 
 const EmptyStateText = styled.Text`
-  font-size: ${({ theme }) => theme.typography.heading}px;
+  font-size: ${({ theme }) => theme.typography.size.lg}px;
   color: ${({ theme }) => theme.colors.slateGray};
   text-align: center;
   margin-bottom: ${({ theme }) => theme.spacing(3)}px;
+  font-weight: ${({ theme }) => theme.typography.weight.medium};
 `;
 
 const ActionButton = styled.TouchableOpacity`
@@ -53,8 +54,8 @@ const ActionButton = styled.TouchableOpacity`
 
 const ActionButtonText = styled.Text`
   color: ${({ theme }) => theme.colors.chalkWhite};
-  font-size: ${({ theme }) => theme.typography.body}px;
-  font-weight: 500;
+  font-size: ${({ theme }) => theme.typography.size.base}px;
+  font-weight: ${({ theme }) => theme.typography.weight.medium};
 `;
 
 /**
@@ -71,7 +72,7 @@ export default function ReviewScreen() {
     deleteCard,
     postponeCard,
     showMemoModal,
-    showEditModal
+    showEditModal,
   } = useReviewStore();
 
   useEffect(() => {
@@ -85,10 +86,8 @@ export default function ReviewScreen() {
     return (
       <Container>
         <EmptyStateContainer>
-          <EmptyStateText>
-            You've completed all cards for now.
-          </EmptyStateText>
-          <ActionButton 
+          <EmptyStateText>You've completed all cards for now.</EmptyStateText>
+          <ActionButton
             onPress={initializeDeck}
             accessibilityRole="button"
             accessibilityLabel="Restart deck"
@@ -107,34 +106,34 @@ export default function ReviewScreen() {
           <CardView card={currentCard} />
           <ActionsRow>
             <ActionContainer>
-              <Icon 
-                name="create" 
-                set="ionicons" 
-                size={24} 
+              <Icon
+                name="create"
+                set="ionicons"
+                size={24}
                 color="#757575"
                 onPress={() => setShowEditModal(true)}
                 accessibilityLabel="Edit card"
               />
               <ActionLabel>Edit</ActionLabel>
             </ActionContainer>
-            
+
             <ActionContainer>
-              <Icon 
-                name="trash" 
-                set="ionicons" 
-                size={24} 
+              <Icon
+                name="trash"
+                set="ionicons"
+                size={24}
                 color="#757575"
                 onPress={() => deleteCard(currentCard.id)}
                 accessibilityLabel="Delete card"
               />
               <ActionLabel>Delete</ActionLabel>
             </ActionContainer>
-            
+
             <ActionContainer>
-              <Icon 
-                name="time" 
-                set="ionicons" 
-                size={24} 
+              <Icon
+                name="time"
+                set="ionicons"
+                size={24}
                 color="#757575"
                 onPress={() => postponeCard(currentCard.id)}
                 accessibilityLabel="Postpone card"
@@ -148,10 +147,7 @@ export default function ReviewScreen() {
       <FloatingMemoButton onPress={() => setShowMemoModal(true)} />
 
       {/* Modals */}
-      <MemoInputModal
-        isVisible={showMemoModal}
-        onClose={() => setShowMemoModal(false)}
-      />
+      <MemoInputModal isVisible={showMemoModal} onClose={() => setShowMemoModal(false)} />
 
       <EditCardModal
         isVisible={showEditModal}

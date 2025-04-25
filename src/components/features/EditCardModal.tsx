@@ -27,10 +27,10 @@ const ModalContent = styled.View`
 `;
 
 const ModalTitle = styled.Text`
-  font-size: ${({ theme }) => theme.typography.heading}px;
+  font-size: ${({ theme }) => theme.typography.size.lg}px;
   color: ${({ theme }) => theme.colors.inkBlack};
   margin-bottom: ${({ theme }) => theme.spacing(2)}px;
-  font-weight: 500;
+  font-weight: ${({ theme }) => theme.typography.weight.medium};
 `;
 
 const TextInput = styled.TextInput`
@@ -40,7 +40,7 @@ const TextInput = styled.TextInput`
   min-height: 100px;
   margin-bottom: ${({ theme }) => theme.spacing(2)}px;
   color: ${({ theme }) => theme.colors.inkBlack};
-  font-size: ${({ theme }) => theme.typography.body}px;
+  font-size: ${({ theme }) => theme.typography.size.base}px;
 `;
 
 const ButtonRow = styled.View`
@@ -56,18 +56,17 @@ interface ButtonProps {
 
 const Button = styled.TouchableOpacity<ButtonProps>`
   padding: ${({ theme }) => theme.spacing(1.5)}px ${({ theme }) => theme.spacing(3)}px;
-  background: ${({ theme, primary }) => 
-    primary ? theme.colors.cobaltBlue : 'transparent'};
+  background: ${({ theme, primary }) => (primary ? theme.colors.cobaltBlue : 'transparent')};
   border-radius: 6px;
   margin-left: ${({ theme }) => theme.spacing(1)}px;
 `;
 
 // Type-safe text component with primary variant support
 const ButtonText = styled.Text<ButtonProps>`
-  color: ${({ theme, primary }) => 
-    primary ? theme.colors.chalkWhite : theme.colors.inkBlack};
-  font-size: ${({ theme }) => theme.typography.body}px;
-  font-weight: ${({ primary }) => (primary ? '500' : 'normal')};
+  color: ${({ theme, primary }) => (primary ? theme.colors.chalkWhite : theme.colors.inkBlack)};
+  font-size: ${({ theme }) => theme.typography.size.base}px;
+  font-weight: ${({ primary, theme }) =>
+    primary ? theme.typography.weight.medium : theme.typography.weight.regular};
 `;
 
 // Component props interface
@@ -84,7 +83,7 @@ interface EditCardModalProps {
 export default function EditCardModal({ isVisible, onClose, card }: EditCardModalProps) {
   // Local state for the question input
   const [questionText, setQuestionText] = useState('');
-  
+
   // Get the store action for editing cards
   const { editCard } = useReviewStore();
 
@@ -121,12 +120,7 @@ export default function EditCardModal({ isVisible, onClose, card }: EditCardModa
   if (!card) return null;
 
   return (
-    <Modal
-      visible={isVisible}
-      transparent
-      animationType="fade"
-      onRequestClose={handleClose}
-    >
+    <Modal visible={isVisible} transparent animationType="fade" onRequestClose={handleClose}>
       <ModalContainer>
         <ModalContent>
           <ModalTitle>Edit Card</ModalTitle>
@@ -144,8 +138,8 @@ export default function EditCardModal({ isVisible, onClose, card }: EditCardModa
             <Button onPress={handleClose} accessibilityRole="button">
               <ButtonText>Cancel</ButtonText>
             </Button>
-            <Button 
-              primary 
+            <Button
+              primary
               onPress={handleSave}
               accessibilityRole="button"
               accessibilityLabel="Save changes"

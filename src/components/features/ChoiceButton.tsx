@@ -24,7 +24,9 @@ const ButtonContent = styled.View<{ disabled?: boolean }>`
 const Label = styled.Text<{ state: ButtonState }>`
   color: ${({ theme, state }) =>
     state === 'default' ? theme.colors.inkBlack : theme.colors.inkBlack};
-  font-size: ${({ theme }) => theme.typography.body}px;
+  font-size: ${({ theme }) => theme.typography.size.base}px;
+  font-weight: ${({ theme, state }) =>
+    state === 'default' ? theme.typography.weight.regular : theme.typography.weight.medium};
 `;
 
 // Component props interface
@@ -50,7 +52,7 @@ export default function ChoiceButton({
 }: ChoiceButtonProps) {
   const theme = useTheme();
   const [isPressed, setIsPressed] = useState(false);
-  
+
   // Get border color based on state
   const getBorderColor = () => {
     switch (state) {
@@ -66,7 +68,7 @@ export default function ChoiceButton({
         return theme.colors.silverGray;
     }
   };
-  
+
   // Get background color based on state
   const getBackgroundColor = () => {
     switch (state) {

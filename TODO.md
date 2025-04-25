@@ -2,7 +2,8 @@
 
 ## Typography & Spacing
 
-- [ ] **D001 · Design · P1: refine typography hierarchy**
+- [x] **D001 · Design · P1: refine typography hierarchy**
+
   - **Context:** Create clear visual hierarchy through font sizes and weights
   - **Action:**
     1. Update typography.ts to include weight variants (regular, medium, bold)
@@ -28,6 +29,7 @@
 ## Visual Elements & Feedback
 
 - [ ] **D003 · Design · P1: enhance choice button styling**
+
   - **Context:** Make buttons more tactile and interactive
   - **Action:**
     1. Add subtle background color to unselected choices
@@ -40,6 +42,7 @@
     3. Touch targets feel deliberate
 
 - [ ] **D004 · Design · P2: implement richer feedback animations**
+
   - **Context:** Enhance visual feedback when answering questions
   - **Action:**
     1. Design animated checkmark/x-mark for correct/incorrect answers
@@ -65,6 +68,7 @@
 ## Action Buttons & Navigation
 
 - [ ] **D006 · Design · P1: improve bottom action buttons**
+
   - **Context:** Make Edit, Delete, and Postpone buttons more refined
   - **Action:**
     1. Design consistent icon style for all actions
@@ -84,13 +88,14 @@
     3. Design pressed state with appropriate feedback
     4. Implement smooth entrance/exit animation
   - **Done‑when:**
-    1. FAB is properly positioned and sized 
+    1. FAB is properly positioned and sized
     2. Button appears to float above content
     3. Interaction feels satisfying
 
 ## Layout & Responsiveness
 
 - [ ] **D008 · Design · P1: optimize layout for different screen sizes**
+
   - **Context:** Ensure comfortable reading experience across devices
   - **Action:**
     1. Create responsive card width constraints for larger screens
@@ -116,6 +121,7 @@
 ## Branding & Identity
 
 - [ ] **D010 · Design · P2: refine app color scheme**
+
   - **Context:** Create a more cohesive and distinctive color palette
   - **Action:**
     1. Review and refine primary, secondary, and accent colors
@@ -141,6 +147,7 @@
 ## Experience Enhancements
 
 - [ ] **D012 · UX · P2: improve card transitions**
+
   - **Context:** Make transitions between cards feel more natural
   - **Action:**
     1. Design card exit animation when moving to next card
@@ -152,6 +159,7 @@
     3. Navigation between cards is delightful
 
 - [ ] **D013 · UX · P2: add subtle haptic feedback**
+
   - **Context:** Enhance touch interactions with appropriate haptics
   - **Action:**
     1. Add light haptic on answer selection
@@ -176,6 +184,7 @@
 ## Accessibility & Inclusion
 
 - [ ] **D015 · A11y · P1: improve accessibility**
+
   - **Context:** Ensure app is usable by people with diverse abilities
   - **Action:**
     1. Add proper semantic roles to all interactive elements
