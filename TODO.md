@@ -138,7 +138,7 @@
     2. TypeScript compiler recognizes the types
   - **Depends‑on:** [T006]
 
-- [ ] **T009 · Feature · P1: implement mock card data**
+- [x] **T009 · Feature · P1: implement mock card data**
   - **Context:** PLAN.md Section 3, Mock Data (`src/api/mocks.ts`)
   - **Action:**
     1. Create `src/api/mocks.ts`
