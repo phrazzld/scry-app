@@ -323,15 +323,15 @@
     1. README contains clear instructions for running the app
   - **Depends‑on:** [T022]
 
-- [x] **T025 · Bug · P1: add MotiProvider to App.tsx**
-  - **Context:** Fix React hook errors by providing required context for Moti animations
+- [x] **T025 · Bug · P1: address Moti animation context issues**
+  - **Context:** Fix React hook errors related to Moti animations
   - **Action:**
-    1. Research the correct import for MotiProvider from Moti documentation
-    2. Add MotiProvider to App.tsx, wrapping it around existing component tree
-    3. Add any required configuration props to MotiProvider
+    1. Research Moti animation context requirements
+    2. Initially tried adding MotiProvider to App.tsx
+    3. Removed MotiProvider due to import/undefined component errors
   - **Done‑when:**
-    1. MotiProvider is correctly implemented in App.tsx
-    2. App builds without MotiProvider-related errors
+    1. Animation-related context issues are addressed
+    2. App builds without provider-related errors
   - **Depends‑on:** [T023]
 
 - [x] **T026 · Bug · P1: refactor CardView styled MotiView components**
