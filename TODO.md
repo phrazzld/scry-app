@@ -229,7 +229,7 @@
     2. Props are properly typed and handled
   - **Depends‑on:** [T010]
 
-- [ ] **T017 · Feature · P1: implement CardView component**
+- [x] **T017 · Feature · P1: implement CardView component**
 
   - **Context:** PLAN.md Section 7, CardView Component
   - **Action:**
