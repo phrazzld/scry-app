@@ -207,7 +207,7 @@
 
 ## Components
 
-- [ ] **T015 · Feature · P2: implement core Icon component**
+- [x] **T015 · Feature · P2: implement core Icon component**
 
   - **Context:** PLAN.md Section 2, core components
   - **Action:**
