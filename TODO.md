@@ -162,7 +162,7 @@
 
 ## State Management
 
-- [ ] **T011 · Feature · P1: implement zustand store structure**
+- [x] **T011 · Feature · P1: implement zustand store structure**
 
   - **Context:** PLAN.md Section 5, Zustand Store
   - **Action:**
