@@ -253,7 +253,7 @@
     2. Animation works on mount
   - **Depends‑on:** [T010]
 
-- [ ] **T019 · Feature · P2: implement MemoInputModal component**
+- [x] **T019 · Feature · P2: implement MemoInputModal component**
 
   - **Context:** PLAN.md Section 7, MemoInputModal Component
   - **Action:**
