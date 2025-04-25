@@ -4,7 +4,6 @@ import styled from 'styled-components/native';
 import { Card } from '../../types';
 import ChoiceButton, { ButtonState } from './ChoiceButton';
 import { MotiView } from 'moti';
-import { AnimatePresence } from 'moti/build';
 import { useReviewStore } from '../../store/reviewStore';
 
 const CardContainer = styled(MotiView)`
@@ -87,53 +86,48 @@ export default function CardView({ card }: CardViewProps) {
     return 'default';
   };
 
+  // Instead of using AnimatePresence which is causing issues,
+  // we'll just use MotiView directly for animations
   return (
-    <AnimatePresence>
-      <CardContainer
-        key={card.id} // Key ensures proper remounting when card changes
-        from={{ 
-          opacity: 0, 
-          translateY: 20,
-          scale: 0.95,
-          rotate: '0.5deg',
-        }}
-        animate={{ 
-          opacity: exitCard ? 0 : 1, 
-          translateY: exitCard ? -20 : 0,
-          scale: exitCard ? 0.95 : 1,
-          rotate: exitCard ? '-0.5deg' : '0deg',
-        }}
-        exit={{ 
-          opacity: 0, 
-          translateY: -40,
-          scale: 0.9
-        }}
-        transition={{ 
-          type: 'spring',
-          damping: 15,
-          mass: 1,
-          stiffness: 120,
-        }}
+    <CardContainer
+      key={card.id} // Key ensures proper remounting when card changes
+      from={{ 
+        opacity: 0, 
+        translateY: 20,
+        scale: 0.95,
+        rotate: '0.5deg',
+      }}
+      animate={{ 
+        opacity: exitCard ? 0 : 1, 
+        translateY: exitCard ? -20 : 0,
+        scale: exitCard ? 0.95 : 1,
+        rotate: exitCard ? '-0.5deg' : '0deg',
+      }}
+      transition={{ 
+        type: 'spring',
+        damping: 15,
+        mass: 1,
+        stiffness: 120,
+      }}
+    >
+      <QuestionContainer
+        from={{ opacity: 0, translateY: 10 }}
+        animate={{ opacity: 1, translateY: 0 }}
+        transition={{ type: 'timing', duration: 300, delay: 150 }}
       >
-        <QuestionContainer
-          from={{ opacity: 0, translateY: 10 }}
-          animate={{ opacity: 1, translateY: 0 }}
-          transition={{ type: 'timing', duration: 300, delay: 150 }}
-        >
-          <QuestionText>{card.question}</QuestionText>
-        </QuestionContainer>
+        <QuestionText>{card.question}</QuestionText>
+      </QuestionContainer>
 
-        {card.choices.map((choice, index) => (
-          <ChoiceButton
-            key={choice.id}
-            text={choice.text}
-            onPress={() => handleChoiceSelect(choice.id)}
-            state={getButtonState(choice.id)}
-            disabled={selectedChoice !== null}
-            index={index} // Pass index for staggered animation
-          />
-        ))}
-      </CardContainer>
-    </AnimatePresence>
+      {card.choices.map((choice, index) => (
+        <ChoiceButton
+          key={choice.id}
+          text={choice.text}
+          onPress={() => handleChoiceSelect(choice.id)}
+          state={getButtonState(choice.id)}
+          disabled={selectedChoice !== null}
+          index={index} // Pass index for staggered animation
+        />
+      ))}
+    </CardContainer>
   );
 }

@@ -16,7 +16,6 @@ jest.mock('moti', () => {
   const { View } = require('react-native');
   return {
     MotiView: View,
-    AnimatePresence: ({ children }: { children: React.ReactNode }) => children,
   };
 });
 
