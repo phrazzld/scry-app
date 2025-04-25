@@ -334,7 +334,7 @@
     2. App builds without MotiProvider-related errors
   - **Depends‑on:** [T023]
 
-- [ ] **T026 · Bug · P1: refactor CardView styled MotiView components**
+- [x] **T026 · Bug · P1: refactor CardView styled MotiView components**
   - **Context:** Fix React hook errors caused by styled MotiView implementation
   - **Action:**
     1. Refactor CardContainer in CardView.tsx to use composition instead of direct styling

@@ -6,7 +6,8 @@ import ChoiceButton, { ButtonState } from './ChoiceButton';
 import { MotiView } from 'moti';
 import { useReviewStore } from '../../store/reviewStore';
 
-const CardContainer = styled(MotiView)`
+// Use regular styled Views for styling instead of styled MotiView
+const StyledCardContainer = styled.View`
   background: ${({ theme }) => theme.colors.chalkWhite};
   border: 1px solid ${({ theme }) => theme.colors.silverGray};
   border-radius: 12px;
@@ -19,7 +20,7 @@ const CardContainer = styled(MotiView)`
   elevation: 4;
 `;
 
-const QuestionContainer = styled(MotiView)`
+const StyledQuestionContainer = styled.View`
   margin-bottom: ${({ theme }) => theme.spacing(3)}px;
 `;
 
@@ -86,48 +87,52 @@ export default function CardView({ card }: CardViewProps) {
     return 'default';
   };
 
-  // Instead of using AnimatePresence which is causing issues,
-  // we'll just use MotiView directly for animations
+  // Using composition pattern: MotiView inside regular styled View
   return (
-    <CardContainer
-      key={card.id} // Key ensures proper remounting when card changes
-      from={{ 
-        opacity: 0, 
-        translateY: 20,
-        scale: 0.95,
-        rotate: '0.5deg',
-      }}
-      animate={{ 
-        opacity: exitCard ? 0 : 1, 
-        translateY: exitCard ? -20 : 0,
-        scale: exitCard ? 0.95 : 1,
-        rotate: exitCard ? '-0.5deg' : '0deg',
-      }}
-      transition={{ 
-        type: 'spring',
-        damping: 15,
-        mass: 1,
-        stiffness: 120,
-      }}
-    >
-      <QuestionContainer
-        from={{ opacity: 0, translateY: 10 }}
-        animate={{ opacity: 1, translateY: 0 }}
-        transition={{ type: 'timing', duration: 300, delay: 150 }}
+    <StyledCardContainer>
+      <MotiView
+        key={card.id} // Key ensures proper remounting when card changes
+        from={{ 
+          opacity: 0, 
+          translateY: 20,
+          scale: 0.95,
+          rotate: '0.5deg',
+        }}
+        animate={{ 
+          opacity: exitCard ? 0 : 1, 
+          translateY: exitCard ? -20 : 0,
+          scale: exitCard ? 0.95 : 1,
+          rotate: exitCard ? '-0.5deg' : '0deg',
+        }}
+        transition={{ 
+          type: 'spring',
+          damping: 15,
+          mass: 1,
+          stiffness: 120,
+        }}
+        style={{ width: '100%' }}
       >
-        <QuestionText>{card.question}</QuestionText>
-      </QuestionContainer>
+        <StyledQuestionContainer>
+          <MotiView
+            from={{ opacity: 0, translateY: 10 }}
+            animate={{ opacity: 1, translateY: 0 }}
+            transition={{ type: 'timing', duration: 300, delay: 150 }}
+          >
+            <QuestionText>{card.question}</QuestionText>
+          </MotiView>
+        </StyledQuestionContainer>
 
-      {card.choices.map((choice, index) => (
-        <ChoiceButton
-          key={choice.id}
-          text={choice.text}
-          onPress={() => handleChoiceSelect(choice.id)}
-          state={getButtonState(choice.id)}
-          disabled={selectedChoice !== null}
-          index={index} // Pass index for staggered animation
-        />
-      ))}
-    </CardContainer>
+        {card.choices.map((choice, index) => (
+          <ChoiceButton
+            key={choice.id}
+            text={choice.text}
+            onPress={() => handleChoiceSelect(choice.id)}
+            state={getButtonState(choice.id)}
+            disabled={selectedChoice !== null}
+            index={index} // Pass index for staggered animation
+          />
+        ))}
+      </MotiView>
+    </StyledCardContainer>
   );
 }
