@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { Card, Memo } from '../types';
 import { mockCards } from '../api/mocks';
-import { v4 as uuidv4 } from 'uuid';
+import { generateSimpleUUID } from '../utils/uuid';
 
 interface ReviewState {
   cards: Card[];
@@ -84,7 +84,7 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
     if (!text.trim()) return;
 
     const newMemo: Memo = {
-      id: uuidv4(),
+      id: generateSimpleUUID(),
       text: text.trim(),
       createdAt: new Date().toISOString(),
     };

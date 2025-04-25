@@ -1,7 +1,6 @@
 import { colors } from './colors';
 import { spacing } from './spacing';
 import { typography } from './typography';
-import ThemeProvider from './ThemeProvider';
 
 export const theme = {
   colors,
@@ -10,4 +9,4 @@ export const theme = {
 };
 
 // Export individual theme elements for direct imports
-export { colors, spacing, typography, ThemeProvider };
+export { colors, spacing, typography };

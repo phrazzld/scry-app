@@ -1,5 +1,5 @@
 import { Card } from '../types';
-import { v4 as uuidv4 } from 'uuid';
+import { generateSimpleUUID } from '../utils/uuid';
 
 // Helper for ISO dates
 const createIsoDate = (offsetDays = 0): string => {
@@ -10,7 +10,7 @@ const createIsoDate = (offsetDays = 0): string => {
 
 export const mockCards: Card[] = [
   {
-    id: uuidv4(),
+    id: generateSimpleUUID(),
     type: 'MULTIPLE_CHOICE',
     status: 'new',
     question: 'What is the primary color used for action highlights in Scry?',
@@ -24,7 +24,7 @@ export const mockCards: Card[] = [
     lastReviewedAt: createIsoDate(-2),
   },
   {
-    id: uuidv4(),
+    id: generateSimpleUUID(),
     type: 'MULTIPLE_CHOICE',
     status: 'new',
     question: 'Which design principle emphasizes "Form is function"?',
@@ -37,7 +37,7 @@ export const mockCards: Card[] = [
     createdAt: createIsoDate(-10),
   },
   {
-    id: uuidv4(),
+    id: generateSimpleUUID(),
     type: 'MULTIPLE_CHOICE',
     status: 'new',
     question: "What is the recommended base grid size in Scry's layout?",
