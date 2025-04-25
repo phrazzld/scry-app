@@ -242,7 +242,7 @@
     3. Feedback states show correctly
   - **Depends‑on:** [T016, T013]
 
-- [ ] **T018 · Feature · P2: implement FloatingMemoButton component**
+- [x] **T018 · Feature · P2: implement FloatingMemoButton component**
 
   - **Context:** PLAN.md Section 7, FloatingMemoButton Component
   - **Action:**
