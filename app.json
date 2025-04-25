@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "scry-demo",
-    "slug": "scry-demo",
+    "name": "scry-app",
+    "slug": "scry-app",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

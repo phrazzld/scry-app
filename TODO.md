@@ -71,7 +71,7 @@
         3. All required dependencies successfully installed
     - **Depends‑on:** [T002-E]
 
-- [ ] **T003 · Chore · P1: install dev dependencies**
+- [x] **T003 · Chore · P1: install dev dependencies**
     - **Context:** PLAN.md Section 1, Project Setup
     - **Action:**
         1. Run `npm install -D eslint prettier eslint-config-prettier eslint-plugin-react-hooks @typescript-eslint/parser @typescript-eslint/eslint-plugin`
