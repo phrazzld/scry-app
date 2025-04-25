@@ -290,7 +290,7 @@
 
 ## App Integration
 
-- [ ] **T022 · Feature · P1: implement main App.tsx**
+- [x] **T022 · Feature · P1: implement main App.tsx**
 
   - **Context:** PLAN.md Section 8, App Entry Point
   - **Action:**

@@ -1,21 +1,26 @@
-import 'react-native-gesture-handler';
+import 'react-native-gesture-handler'; // Must be first import
+import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { ThemeProvider } from './src/theme';
+import AppNavigator from './src/navigation/AppNavigator';
+import { useReviewStore } from './src/store/reviewStore';
 
+/**
+ * Main App component that sets up providers and initializes the app
+ */
 export default function App() {
+  // Initialize the deck on app launch
+  useEffect(() => {
+    useReviewStore.getState().initializeDeck();
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider>
+      <ThemeProvider>
+        <StatusBar style="dark" />
+        <AppNavigator />
+      </ThemeProvider>
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
