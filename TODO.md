@@ -356,7 +356,7 @@
     2. Button animations still function as intended
   - **Depends‑on:** [T025]
 
-- [ ] **T028 · Bug · P1: verify Moti dependency compatibility**
+- [x] **T028 · Bug · P1: verify Moti dependency compatibility**
   - **Context:** Ensure Moti version is compatible with React Native and Reanimated
   - **Action:**
     1. Research required/compatible versions of Reanimated for Moti v0.30.0
