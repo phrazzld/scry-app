@@ -41,14 +41,23 @@ const Icon: React.FC<IconProps> = ({
         accessibilityRole="button"
         hitSlop={{ top: 10, right: 10, bottom: 10, left: 10 }}
       >
-        <IconComponent name={name} size={size} color={disabled ? colors.silverGray : color} />
+        <IconComponent
+          name={name as any}
+          size={size}
+          color={disabled ? colors.silverGray : color}
+        />
       </TouchableOpacity>
     );
   }
 
   // Just render the icon without touchable wrapper
   return (
-    <IconComponent name={name} size={size} color={color} accessibilityLabel={accessibilityLabel} />
+    <IconComponent
+      name={name as any}
+      size={size}
+      color={color}
+      accessibilityLabel={accessibilityLabel}
+    />
   );
 };
 

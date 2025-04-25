@@ -218,7 +218,7 @@
     2. Handles onPress events correctly
   - **Depends‑on:** [T010]
 
-- [ ] **T016 · Feature · P2: implement ChoiceButton component**
+- [x] **T016 · Feature · P2: implement ChoiceButton component**
 
   - **Context:** PLAN.md Section 7, ChoiceButton Component
   - **Action:**
