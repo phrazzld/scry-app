@@ -33,7 +33,7 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
   showMemoModal: false,
   showEditModal: false,
 
-  // Basic store structure with placeholder actions
+  // Core store actions
   initializeDeck: () => {
     set({
       cards: [...mockCards],
@@ -42,20 +42,41 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
     });
   },
 
-  answerCard: (_cardId, _choiceId) => {
-    // This will be implemented in T012
-    console.warn('Placeholder: Answer card action will be implemented in T012');
+  answerCard: (cardId, choiceId) => {
+    // Check if answer is correct
+    const { cards, currentIndex } = get();
+    const card = cards[currentIndex];
+    const isCorrect = card.choices.find(c => c.id === choiceId)?.isCorrect || false;
+
+    // Update card status
+    set(state => ({
+      cards: state.cards.map(c =>
+        c.id === cardId
+          ? { ...c, status: isCorrect ? 'answered_correct' : 'answered_incorrect' }
+          : c
+      ),
+    }));
+
+    // Advance to next card after a delay
+    setTimeout(() => {
+      get().nextCard();
+    }, 1000);
   },
 
   nextCard: () => {
-    // This will be implemented in T012
-    console.warn('Placeholder: Next card action will be implemented in T012');
+    set(state => {
+      const nextIndex = state.currentIndex + 1;
+      if (nextIndex >= state.cards.length) {
+        return { isDeckComplete: true };
+      }
+      return { currentIndex: nextIndex };
+    });
   },
 
   setShowMemoModal: show => set({ showMemoModal: show }),
   setShowEditModal: show => set({ showEditModal: show }),
 
-  submitMemo: (_text) => {
+  submitMemo: _text => {
     // This will be implemented in T013
     console.warn('Placeholder: Submit memo action will be implemented in T013');
   },
@@ -65,12 +86,12 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
     console.warn('Placeholder: Edit card action will be implemented in T013');
   },
 
-  deleteCard: (_cardId) => {
+  deleteCard: _cardId => {
     // This will be implemented in T013
     console.warn('Placeholder: Delete card action will be implemented in T013');
   },
 
-  postponeCard: (_cardId) => {
+  postponeCard: _cardId => {
     // This will be implemented in T013
     console.warn('Placeholder: Postpone card action will be implemented in T013');
   },

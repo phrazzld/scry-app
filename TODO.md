@@ -173,7 +173,7 @@
     1. Store can be imported and accessed
   - **Depends‑on:** [T008, T009]
 
-- [ ] **T012 · Feature · P2: implement core store actions**
+- [x] **T012 · Feature · P2: implement core store actions**
 
   - **Context:** PLAN.md Section 5, Zustand Store actions
   - **Action:**
