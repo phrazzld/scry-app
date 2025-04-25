@@ -150,7 +150,7 @@
 
 ## Theme & Styling
 
-- [ ] **T010 · Feature · P1: implement theme system**
+- [x] **T010 · Feature · P1: implement theme system**
   - **Context:** PLAN.md Section 4, Theme Definition
   - **Action:**
     1. Create `colors.ts`, `spacing.ts`, `typography.ts`, and `index.ts` in `src/theme/`
