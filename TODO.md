@@ -314,7 +314,7 @@
     2. State changes (selection, feedback) have visual transitions
   - **Depends‑on:** [T017]
 
-- [ ] **T024 · Chore · P3: create README with running instructions**
+- [x] **T024 · Chore · P3: create README with running instructions**
   - **Context:** PLAN.md Section 10, Running the Demo
   - **Action:**
     1. Create README.md with project description
