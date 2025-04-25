@@ -323,13 +323,61 @@
     1. README contains clear instructions for running the app
   - **Depends‑on:** [T022]
 
-### Clarifications & Assumptions
+- [x] **T025 · Bug · P1: add MotiProvider to App.tsx**
+  - **Context:** Fix React hook errors by providing required context for Moti animations
+  - **Action:**
+    1. Research the correct import for MotiProvider from Moti documentation
+    2. Add MotiProvider to App.tsx, wrapping it around existing component tree
+    3. Add any required configuration props to MotiProvider
+  - **Done‑when:**
+    1. MotiProvider is correctly implemented in App.tsx
+    2. App builds without MotiProvider-related errors
+  - **Depends‑on:** [T023]
 
-- [ ] **Issue:** Core components Button.tsx and StyledText.tsx lack implementation details
+- [ ] **T026 · Bug · P1: refactor CardView styled MotiView components**
+  - **Context:** Fix React hook errors caused by styled MotiView implementation
+  - **Action:**
+    1. Refactor CardContainer in CardView.tsx to use composition instead of direct styling
+    2. Refactor QuestionContainer in CardView.tsx to use composition instead of direct styling
+    3. Ensure all animation props are correctly passed to the MotiView components
+  - **Done‑when:**
+    1. CardView component renders without hook errors
+    2. Animations still function as intended
+  - **Depends‑on:** [T025]
 
-  - **Context:** PLAN.md Section 2 mentions these files but doesn't provide code
-  - **Blocking?:** no
+- [ ] **T027 · Bug · P1: refactor ChoiceButton styled MotiView components**
+  - **Context:** Fix React hook errors caused by styled MotiView in ChoiceButton
+  - **Action:**
+    1. Refactor AnimatedContainer in ChoiceButton.tsx to use composition instead of direct styling
+    2. Ensure all animation props and styles are correctly passed to the MotiView component
+    3. Update any dependent styling to maintain visual appearance
+  - **Done‑when:**
+    1. ChoiceButton component renders without hook errors
+    2. Button animations still function as intended
+  - **Depends‑on:** [T025]
 
-- [ ] **Issue:** Missing test implementation in development plan
-  - **Context:** DEVELOPMENT_PHILOSOPHY.md mentions testing, but PLAN.md has no test setup
-  - **Blocking?:** no
+- [ ] **T028 · Bug · P1: verify Moti dependency compatibility**
+  - **Context:** Ensure Moti version is compatible with React Native and Reanimated
+  - **Action:**
+    1. Research required/compatible versions of Reanimated for Moti v0.30.0
+    2. Verify current Reanimated version meets requirements
+    3. Update dependencies if needed for compatibility
+  - **Done‑when:**
+    1. All animation dependencies are verified to be compatible
+    2. Any required updates are made to package.json
+  - **Depends‑on:** [T025]
+
+- [ ] **T029 · Bug · P1: test and verify animation fixes**
+  - **Context:** Ensure all animation fixes are working correctly
+  - **Action:**
+    1. Run the app in both iOS and Android simulators
+    2. Test all card animations for proper functionality
+    3. Test choice button animations for proper functionality
+    4. Verify no React hook errors are present in the console
+    5. Mark T023 as complete once all animation issues are fixed
+  - **Done‑when:**
+    1. App runs without React hook errors
+    2. All animations work as originally designed
+    3. T023 is marked as completed in TODO.md
+  - **Depends‑on:** [T026, T027, T028]
+

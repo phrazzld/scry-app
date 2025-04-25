@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemeProvider } from './src/theme';
+import { MotiProvider } from 'moti';
 import AppNavigator from './src/navigation/AppNavigator';
 import { useReviewStore } from './src/store/reviewStore';
 
@@ -18,8 +19,10 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <ThemeProvider>
-        <StatusBar style="dark" />
-        <AppNavigator />
+        <MotiProvider>
+          <StatusBar style="dark" />
+          <AppNavigator />
+        </MotiProvider>
       </ThemeProvider>
     </SafeAreaProvider>
   );
