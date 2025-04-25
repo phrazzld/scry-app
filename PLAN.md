@@ -27,21 +27,23 @@ npm install -D eslint prettier eslint-config-prettier eslint-plugin-react-hooks 
 ```
 
 ### Configure Reanimated
+
 In `babel.config.js`:
+
 ```javascript
-module.exports = function(api) {
+module.exports = function (api) {
   api.cache(true);
   return {
     presets: ['babel-preset-expo'],
-    plugins: [
-      'react-native-reanimated/plugin',
-    ],
+    plugins: ['react-native-reanimated/plugin'],
   };
 };
 ```
 
 ### Update App Entry Point
+
 In `App.tsx` (import at the very top):
+
 ```typescript
 import 'react-native-gesture-handler';
 ```
@@ -160,7 +162,7 @@ export const mockCards: Card[] = [
     id: uuidv4(),
     type: 'MULTIPLE_CHOICE',
     status: 'new',
-    question: 'What is the recommended base grid size in Scry\'s layout?',
+    question: "What is the recommended base grid size in Scry's layout?",
     choices: [
       { id: 'a', text: '4pt', isCorrect: false },
       { id: 'b', text: '16pt', isCorrect: false },
@@ -275,10 +277,10 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
     // Update card status
     set(state => ({
       cards: state.cards.map(c =>
-        c.id === cardId ?
-          { ...c, status: isCorrect ? 'answered_correct' : 'answered_incorrect' }
+        c.id === cardId
+          ? { ...c, status: isCorrect ? 'answered_correct' : 'answered_incorrect' }
           : c
-      )
+      ),
     }));
 
     // Advance to next card after a delay
@@ -297,10 +299,10 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
     });
   },
 
-  setShowMemoModal: (show) => set({ showMemoModal: show }),
-  setShowEditModal: (show) => set({ showEditModal: show }),
+  setShowMemoModal: show => set({ showMemoModal: show }),
+  setShowEditModal: show => set({ showEditModal: show }),
 
-  submitMemo: (text) => {
+  submitMemo: text => {
     console.log('DEMO: Submitting memo:', text);
     set({ showMemoModal: false });
     // In real app, this would make an API call
@@ -308,24 +310,22 @@ export const useReviewStore = create<ReviewState>((set, get) => ({
 
   editCard: (cardId, newQuestion) => {
     set(state => ({
-      cards: state.cards.map(c =>
-        c.id === cardId ? { ...c, question: newQuestion } : c
-      ),
-      showEditModal: false
+      cards: state.cards.map(c => (c.id === cardId ? { ...c, question: newQuestion } : c)),
+      showEditModal: false,
     }));
   },
 
-  deleteCard: (cardId) => {
+  deleteCard: cardId => {
     set(state => ({
       cards: state.cards.filter(c => c.id !== cardId),
     }));
     get().nextCard();
   },
 
-  postponeCard: (cardId) => {
+  postponeCard: cardId => {
     // For demo, just move to next card
     get().nextCard();
-  }
+  },
 }));
 ```
 
@@ -912,6 +912,7 @@ export default function App() {
 4. **Modal Transitions**: Smooth fade-in/out for modals
 
 ### Implementation Notes:
+
 - Use the `key` prop to force remounting and trigger animations when changing cards
 - For multi-step animations, chain animations using `useAnimatedStyle` from Reanimated
 - Keep animations subtle and aligned with the modernist aesthetic (clean, purposeful movement)
