@@ -95,7 +95,7 @@
         1. Import statement appears at top of `App.tsx`
     - **Depends‑on:** [T002]
 
-- [ ] **T006 · Chore · P2: create project folder structure**
+- [x] **T006 · Chore · P2: create project folder structure**
     - **Context:** PLAN.md Section 2, Folder Structure
     - **Action:**
         1. Create all directories as specified in the plan
