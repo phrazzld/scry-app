@@ -18,15 +18,14 @@ export default function FloatingMemoButtonDemo() {
       <View style={styles.container}>
         <Text style={styles.title}>FloatingMemoButton Demo</Text>
         <Text style={styles.instructions}>
-          The floating button should appear in the bottom-right corner.
-          Tap it to see the action.
+          The floating button should appear in the bottom-right corner. Tap it to see the action.
         </Text>
 
         {/* Content area to demonstrate the button appearing over content */}
         <View style={styles.contentArea}>
           <Text style={styles.contentText}>
-            This is the main content area of the app.
-            The floating button should appear over this content.
+            This is the main content area of the app. The floating button should appear over this
+            content.
           </Text>
         </View>
 

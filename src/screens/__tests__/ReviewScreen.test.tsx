@@ -30,10 +30,10 @@ jest.mock('../../components/features/FloatingMemoButton', () => {
 
 jest.mock('../../components/features/MemoInputModal', () => {
   const { View } = require('react-native');
-  return function MockMemoInputModal({ 
-    isVisible, 
-    onClose 
-  }: { 
+  return function MockMemoInputModal({
+    isVisible,
+    onClose,
+  }: {
     isVisible: boolean;
     onClose: () => void;
   }) {
@@ -44,11 +44,11 @@ jest.mock('../../components/features/MemoInputModal', () => {
 
 jest.mock('../../components/features/EditCardModal', () => {
   const { View } = require('react-native');
-  return function MockEditCardModal({ 
-    isVisible, 
-    onClose, 
-    card 
-  }: { 
+  return function MockEditCardModal({
+    isVisible,
+    onClose,
+    card,
+  }: {
     isVisible: boolean;
     onClose: () => void;
     card: Card | null;
@@ -64,18 +64,18 @@ jest.mock('../../components/features/EditCardModal', () => {
 
 jest.mock('../../components/core/Icon', () => {
   const { TouchableOpacity, Text } = require('react-native');
-  return function MockIcon({ 
-    name, 
+  return function MockIcon({
+    name,
     onPress,
-    accessibilityLabel 
-  }: { 
+    accessibilityLabel,
+  }: {
     name: string;
     onPress?: () => void;
     accessibilityLabel?: string;
   }) {
     return (
-      <TouchableOpacity 
-        testID={`icon-${name}`} 
+      <TouchableOpacity
+        testID={`icon-${name}`}
         onPress={onPress}
         accessibilityLabel={accessibilityLabel}
       >
@@ -110,7 +110,7 @@ describe('ReviewScreen', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    
+
     // Default store mock with deck in progress
     (useReviewStore as jest.Mock).mockReturnValue({
       currentCard: mockCard,
@@ -159,7 +159,7 @@ describe('ReviewScreen', () => {
     // Check if card view is rendered
     expect(getByTestId('card-view')).toBeTruthy();
     expect(getByText('What is the capital of France?')).toBeTruthy();
-    
+
     // Check if action buttons are rendered
     expect(getByTestId('icon-create')).toBeTruthy();
     expect(getByTestId('icon-trash')).toBeTruthy();
@@ -187,7 +187,7 @@ describe('ReviewScreen', () => {
     );
 
     // Check if empty state is rendered
-    expect(getByText('You\'ve completed all cards for now.')).toBeTruthy();
+    expect(getByText("You've completed all cards for now.")).toBeTruthy();
     expect(getByText('Restart Demo')).toBeTruthy();
   });
 
@@ -213,7 +213,7 @@ describe('ReviewScreen', () => {
 
     // Press the restart button
     fireEvent.press(getByText('Restart Demo'));
-    
+
     // Check if initializeDeck was called
     expect(mockInitializeDeck).toHaveBeenCalledTimes(1);
   });
@@ -227,7 +227,7 @@ describe('ReviewScreen', () => {
 
     // Press the edit button
     fireEvent.press(getByTestId('icon-create'));
-    
+
     // Check if setShowEditModal was called
     expect(mockSetShowEditModal).toHaveBeenCalledWith(true);
   });
@@ -241,7 +241,7 @@ describe('ReviewScreen', () => {
 
     // Press the delete button
     fireEvent.press(getByTestId('icon-trash'));
-    
+
     // Check if deleteCard was called with the current card id
     expect(mockDeleteCard).toHaveBeenCalledWith(mockCard.id);
   });
@@ -255,7 +255,7 @@ describe('ReviewScreen', () => {
 
     // Press the postpone button
     fireEvent.press(getByTestId('icon-time'));
-    
+
     // Check if postponeCard was called with the current card id
     expect(mockPostponeCard).toHaveBeenCalledWith(mockCard.id);
   });
@@ -269,7 +269,7 @@ describe('ReviewScreen', () => {
 
     // Press the floating memo button
     fireEvent.press(getByTestId('floating-memo-button'));
-    
+
     // Check if setShowMemoModal was called
     expect(mockSetShowMemoModal).toHaveBeenCalledWith(true);
   });

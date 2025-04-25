@@ -69,7 +69,7 @@ describe('CardView', () => {
 
     // Check question
     expect(getByText('Test question?')).toBeTruthy();
-    
+
     // Check choices
     expect(getByText('Option A')).toBeTruthy();
     expect(getByText('Option B')).toBeTruthy();
@@ -100,13 +100,13 @@ describe('CardView', () => {
     // First, all options should be pressable
     const optionA = getByText('Option A');
     const optionB = getByText('Option B');
-    
+
     // Select option A
     fireEvent.press(optionA);
-    
+
     // Try to select option B (should not trigger another call to answerCard)
     fireEvent.press(optionB);
-    
+
     // Verify answerCard was only called once
     expect(mockAnswerCard).toHaveBeenCalledTimes(1);
   });
@@ -117,15 +117,15 @@ describe('CardView', () => {
         <CardView card={mockCard} />
       </ThemeProvider>
     );
-    
+
     // Select an answer
     fireEvent.press(getByText('Option A'));
-    
+
     // Fast forward through exit animation timeout
     act(() => {
       jest.advanceTimersByTime(1000);
     });
-    
+
     // The exit animation state should now be set (this is an internal test)
     // Since we can't directly test animation state, we're testing that the timeout completes
     expect(setTimeout).toHaveBeenCalled();
@@ -137,25 +137,25 @@ describe('CardView', () => {
         <CardView card={mockCard} />
       </ThemeProvider>
     );
-    
+
     // Select an answer
     fireEvent.press(getByText('Option A'));
-    
+
     // Re-render with a different card
     rerender(
       <ThemeProvider>
         <CardView card={mockCard2} />
       </ThemeProvider>
     );
-    
+
     // New card should be rendered
     expect(getByText('Second question?')).toBeTruthy();
     expect(getByText('Second A')).toBeTruthy();
     expect(getByText('Second B')).toBeTruthy();
-    
+
     // State should be reset, so both options should be pressable
     fireEvent.press(getByText('Second A'));
-    
+
     // answerCard should be called for the new card
     expect(mockAnswerCard).toHaveBeenCalledWith(mockCard2.id, 'a');
   });
@@ -166,14 +166,14 @@ describe('CardView', () => {
         <CardView card={mockCard} />
       </ThemeProvider>
     );
-    
+
     // Re-render with a different card
     rerender(
       <ThemeProvider>
         <CardView card={mockCard2} />
       </ThemeProvider>
     );
-    
+
     // Since we're mocking MotiView, we can't directly test the key prop
     // This is just a structural test to ensure the component re-renders without errors
     expect(container).toBeTruthy();

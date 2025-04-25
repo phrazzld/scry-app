@@ -11,7 +11,7 @@ import { useReviewStore } from '../../../store/reviewStore';
 export default function EditCardModalDemo() {
   // State to control modal visibility
   const [showModal, setShowModal] = useState(false);
-  
+
   // Mock card for demonstration
   const [demoCard, setDemoCard] = useState<Card>({
     id: '123',
@@ -26,7 +26,7 @@ export default function EditCardModalDemo() {
     ],
     createdAt: new Date().toISOString(),
   });
-  
+
   // Mock the edit card action
   const mockEditCard = (cardId: string, newQuestion: string) => {
     setDemoCard(prevCard => ({
@@ -56,10 +56,10 @@ export default function EditCardModalDemo() {
             <Text style={styles.cardQuestion}>{demoCard.question}</Text>
             <ScrollView style={styles.choicesList}>
               {demoCard.choices.map(choice => (
-                <View key={choice.id} style={[
-                  styles.choice,
-                  choice.isCorrect ? styles.correctChoice : null
-                ]}>
+                <View
+                  key={choice.id}
+                  style={[styles.choice, choice.isCorrect ? styles.correctChoice : null]}
+                >
                   <Text style={styles.choiceText}>
                     {choice.id}. {choice.text}
                     {choice.isCorrect ? ' ✓' : ''}
@@ -70,19 +70,12 @@ export default function EditCardModalDemo() {
           </View>
         </View>
 
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={() => setShowModal(true)}
-        >
+        <TouchableOpacity style={styles.button} onPress={() => setShowModal(true)}>
           <Text style={styles.buttonText}>Edit Question</Text>
         </TouchableOpacity>
 
         {/* The EditCardModal component */}
-        <EditCardModal 
-          isVisible={showModal}
-          onClose={() => setShowModal(false)}
-          card={demoCard}
-        />
+        <EditCardModal isVisible={showModal} onClose={() => setShowModal(false)} card={demoCard} />
       </View>
     </ThemeProvider>
   );

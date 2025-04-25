@@ -27,9 +27,7 @@ export default function CardViewDemo() {
     <ThemeProvider>
       <View style={styles.container}>
         <Text style={styles.title}>CardView Demo</Text>
-        <Text style={styles.subtitle}>
-          Try selecting an answer to see the feedback
-        </Text>
+        <Text style={styles.subtitle}>Try selecting an answer to see the feedback</Text>
         <View style={styles.cardContainer}>
           <CardView card={demoCard} />
         </View>

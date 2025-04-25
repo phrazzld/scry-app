@@ -10,10 +10,10 @@ import { useReviewStore } from '../../../store/reviewStore';
 export default function MemoInputModalDemo() {
   // State to control modal visibility
   const [showModal, setShowModal] = useState(false);
-  
+
   // Simplified submitMemo implementation for the demo
   const [memos, setMemos] = useState<Array<{ id: string; text: string; createdAt: string }>>([]);
-  
+
   // Mock the store submitMemo action
   const mockSubmitMemo = (text: string) => {
     const newMemo = {
@@ -39,10 +39,7 @@ export default function MemoInputModalDemo() {
           This demo shows the MemoInputModal component for adding text memos.
         </Text>
 
-        <TouchableOpacity 
-          style={styles.button} 
-          onPress={() => setShowModal(true)}
-        >
+        <TouchableOpacity style={styles.button} onPress={() => setShowModal(true)}>
           <Text style={styles.buttonText}>Open Modal</Text>
         </TouchableOpacity>
 
@@ -56,9 +53,7 @@ export default function MemoInputModalDemo() {
               memos.map(memo => (
                 <View key={memo.id} style={styles.memoItem}>
                   <Text style={styles.memoText}>{memo.text}</Text>
-                  <Text style={styles.memoDate}>
-                    {new Date(memo.createdAt).toLocaleString()}
-                  </Text>
+                  <Text style={styles.memoDate}>{new Date(memo.createdAt).toLocaleString()}</Text>
                 </View>
               ))
             )}
@@ -66,10 +61,7 @@ export default function MemoInputModalDemo() {
         </View>
 
         {/* The MemoInputModal component */}
-        <MemoInputModal 
-          isVisible={showModal}
-          onClose={() => setShowModal(false)}
-        />
+        <MemoInputModal isVisible={showModal} onClose={() => setShowModal(false)} />
       </View>
     </ThemeProvider>
   );

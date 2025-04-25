@@ -39,17 +39,8 @@ export default function FloatingMemoButton({ onPress }: FloatingMemoButtonProps)
       animate={{ opacity: 1, translateY: 0 }}
       transition={{ type: 'timing', duration: 400 }}
     >
-      <TouchableButton
-        onPress={onPress}
-        accessibilityRole="button"
-        accessibilityLabel="Add memo"
-      >
-        <Icon 
-          name="add" 
-          set="ionicons" 
-          size={24} 
-          color="#ffffff" 
-        />
+      <TouchableButton onPress={onPress} accessibilityRole="button" accessibilityLabel="Add memo">
+        <Icon name="add" set="ionicons" size={24} color="#ffffff" />
       </TouchableButton>
     </Container>
   );

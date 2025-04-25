@@ -27,7 +27,7 @@ jest.mock('react-native/Libraries/Modal/Modal', () => {
 describe('EditCardModal', () => {
   // Mock store implementation
   const mockEditCard = jest.fn();
-  
+
   // Mock card data
   const mockCard: Card = {
     id: '123',
@@ -40,7 +40,7 @@ describe('EditCardModal', () => {
       { id: 'c', text: 'London', isCorrect: false },
       { id: 'd', text: 'Rome', isCorrect: false },
     ],
-    createdAt: new Date().toISOString()
+    createdAt: new Date().toISOString(),
   };
 
   beforeEach(() => {
@@ -61,7 +61,7 @@ describe('EditCardModal', () => {
     // Check title and input elements
     expect(getByText('Edit Card')).toBeTruthy();
     expect(getByDisplayValue('What is the capital of France?')).toBeTruthy();
-    
+
     // Check buttons
     expect(getByText('Cancel')).toBeTruthy();
     expect(getByText('Save')).toBeTruthy();
@@ -99,7 +99,7 @@ describe('EditCardModal', () => {
 
     // Click the cancel button
     fireEvent.press(getByText('Cancel'));
-    
+
     // Check if onClose was called
     expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
@@ -113,7 +113,7 @@ describe('EditCardModal', () => {
 
     const input = getByDisplayValue('What is the capital of France?');
     fireEvent.changeText(input, 'What is the capital of Germany?');
-    
+
     // Check if input value was updated
     expect(input.props.value).toBe('What is the capital of Germany?');
   });
@@ -129,10 +129,10 @@ describe('EditCardModal', () => {
     // Update the question text
     const input = getByDisplayValue('What is the capital of France?');
     fireEvent.changeText(input, 'What is the capital of Germany?');
-    
+
     // Save the changes
     fireEvent.press(getByText('Save'));
-    
+
     // Check if store action and onClose were called
     expect(mockEditCard).toHaveBeenCalledWith('123', 'What is the capital of Germany?');
     expect(mockOnClose).toHaveBeenCalledTimes(1);
@@ -149,10 +149,10 @@ describe('EditCardModal', () => {
     // Set empty text
     const input = getByDisplayValue('What is the capital of France?');
     fireEvent.changeText(input, '   ');
-    
+
     // Try to save
     fireEvent.press(getByText('Save'));
-    
+
     // Verify no actions were taken
     expect(mockEditCard).not.toHaveBeenCalled();
     expect(mockOnClose).not.toHaveBeenCalled();
@@ -168,21 +168,21 @@ describe('EditCardModal', () => {
     // Change the text
     const input = getByDisplayValue('What is the capital of France?');
     fireEvent.changeText(input, 'What is the capital of Germany?');
-    
+
     // Close modal
     rerender(
       <ThemeProvider>
         <EditCardModal isVisible={false} onClose={() => {}} card={mockCard} />
       </ThemeProvider>
     );
-    
+
     // Reopen modal
     rerender(
       <ThemeProvider>
         <EditCardModal isVisible={true} onClose={() => {}} card={mockCard} />
       </ThemeProvider>
     );
-    
+
     // Check if input was reset to original question
     expect(getByDisplayValue('What is the capital of France?')).toBeTruthy();
   });
@@ -196,21 +196,21 @@ describe('EditCardModal', () => {
 
     // Initial value
     expect(getByDisplayValue('What is the capital of France?')).toBeTruthy();
-    
+
     // New card data
     const newMockCard = {
       ...mockCard,
       id: '456',
-      question: 'What is the capital of Germany?'
+      question: 'What is the capital of Germany?',
     };
-    
+
     // Update with new card
     rerender(
       <ThemeProvider>
         <EditCardModal isVisible={true} onClose={() => {}} card={newMockCard} />
       </ThemeProvider>
     );
-    
+
     // Check if input shows new card question
     expect(getByDisplayValue('What is the capital of Germany?')).toBeTruthy();
   });

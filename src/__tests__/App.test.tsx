@@ -33,9 +33,7 @@ jest.mock('../theme', () => {
 jest.mock('expo-status-bar', () => {
   const { View } = require('react-native');
   return {
-    StatusBar: ({ style }: { style: string }) => (
-      <View testID="status-bar" style={{ style }} />
-    ),
+    StatusBar: ({ style }: { style: string }) => <View testID="status-bar" style={{ style }} />,
   };
 });
 
@@ -50,7 +48,7 @@ jest.mock('../navigation/AppNavigator', () => {
 describe('App Component', () => {
   it('initializes the deck on mount', () => {
     render(<App />);
-    
+
     // Verify that initializeDeck was called
     expect(useReviewStore.getState).toHaveBeenCalled();
   });

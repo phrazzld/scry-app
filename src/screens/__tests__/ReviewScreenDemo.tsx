@@ -35,11 +35,13 @@ export default function ReviewScreenDemo() {
     const isCorrect = card.choices.find(c => c.id === choiceId)?.isCorrect || false;
 
     // Update card status
-    setCards(cards.map(c =>
-      c.id === cardId
-        ? { ...c, status: isCorrect ? 'answered_correct' : 'answered_incorrect' }
-        : c
-    ));
+    setCards(
+      cards.map(c =>
+        c.id === cardId
+          ? { ...c, status: isCorrect ? 'answered_correct' : 'answered_incorrect' }
+          : c
+      )
+    );
 
     // Advance to next card after a delay
     setTimeout(() => {
@@ -58,7 +60,7 @@ export default function ReviewScreenDemo() {
 
   const mockDeleteCard = (cardId: string) => {
     const updatedCards = cards.filter(card => card.id !== cardId);
-    
+
     // Adjust current index if needed
     let newIndex = currentIndex;
     if (newIndex >= updatedCards.length) {
@@ -103,9 +105,9 @@ export default function ReviewScreenDemo() {
   const mockEditCard = (cardId: string, newQuestion: string) => {
     if (!newQuestion.trim()) return;
 
-    setCards(cards.map(card =>
-      card.id === cardId ? { ...card, question: newQuestion.trim() } : card
-    ));
+    setCards(
+      cards.map(card => (card.id === cardId ? { ...card, question: newQuestion.trim() } : card))
+    );
     setShowEditModal(false);
   };
 
@@ -135,20 +137,17 @@ export default function ReviewScreenDemo() {
     <ThemeProvider>
       <View style={styles.container}>
         <Text style={styles.title}>ReviewScreen Demo</Text>
-        
+
         {/* Demo Status Bar */}
         <View style={styles.statusBar}>
           <Text style={styles.statusText}>
             Card: {currentIndex + 1}/{cards.length} | Memos: {memos.length}
           </Text>
-          <TouchableOpacity 
-            style={styles.resetButton}
-            onPress={mockInitializeDeck}
-          >
+          <TouchableOpacity style={styles.resetButton} onPress={mockInitializeDeck}>
             <Text style={styles.resetButtonText}>Reset Demo</Text>
           </TouchableOpacity>
         </View>
-        
+
         {/* The ReviewScreen component */}
         <View style={styles.screenContainer}>
           <ReviewScreen />

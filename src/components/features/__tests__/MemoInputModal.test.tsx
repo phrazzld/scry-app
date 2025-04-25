@@ -45,7 +45,7 @@ describe('MemoInputModal', () => {
     // Check title and input elements
     expect(getByText('Add Memo')).toBeTruthy();
     expect(getByPlaceholderText('Type your memo here...')).toBeTruthy();
-    
+
     // Check buttons
     expect(getByText('Cancel')).toBeTruthy();
     expect(getByText('Submit')).toBeTruthy();
@@ -72,7 +72,7 @@ describe('MemoInputModal', () => {
 
     // Click the cancel button
     fireEvent.press(getByText('Cancel'));
-    
+
     // Check if onClose was called
     expect(mockOnClose).toHaveBeenCalledTimes(1);
   });
@@ -86,7 +86,7 @@ describe('MemoInputModal', () => {
 
     const input = getByPlaceholderText('Type your memo here...');
     fireEvent.changeText(input, 'Test memo');
-    
+
     // Check if input value was updated
     expect(input.props.value).toBe('Test memo');
   });
@@ -103,7 +103,7 @@ describe('MemoInputModal', () => {
     const input = getByPlaceholderText('Type your memo here...');
     fireEvent.changeText(input, 'Test memo');
     fireEvent.press(getByText('Submit'));
-    
+
     // Check if store action and onClose were called
     expect(mockSubmitMemo).toHaveBeenCalledWith('Test memo');
     expect(mockOnClose).toHaveBeenCalledTimes(1);
@@ -119,7 +119,7 @@ describe('MemoInputModal', () => {
 
     // Try to submit without entering text
     fireEvent.press(getByText('Submit'));
-    
+
     // Verify no actions were taken
     expect(mockSubmitMemo).not.toHaveBeenCalled();
     expect(mockOnClose).not.toHaveBeenCalled();
@@ -135,21 +135,21 @@ describe('MemoInputModal', () => {
     // Enter text
     const input = getByPlaceholderText('Type your memo here...');
     fireEvent.changeText(input, 'Test memo');
-    
+
     // Close modal
     rerender(
       <ThemeProvider>
         <MemoInputModal isVisible={false} onClose={() => {}} />
       </ThemeProvider>
     );
-    
+
     // Reopen modal
     rerender(
       <ThemeProvider>
         <MemoInputModal isVisible={true} onClose={() => {}} />
       </ThemeProvider>
     );
-    
+
     // Check if input was cleared
     const reopenedInput = getByPlaceholderText('Type your memo here...');
     expect(reopenedInput.props.value).toBe('');

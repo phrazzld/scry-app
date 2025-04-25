@@ -47,7 +47,7 @@ describe('FloatingMemoButton', () => {
     // Find the button by role and press it
     const button = getByRole('button');
     fireEvent.press(button);
-    
+
     // Check if our mock function was called
     expect(mockOnPress).toHaveBeenCalledTimes(1);
   });
