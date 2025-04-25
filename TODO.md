@@ -127,7 +127,7 @@
 
 ## Types & Mock Data
 
-- [ ] **T008 · Feature · P1: implement TypeScript types**
+- [x] **T008 · Feature · P1: implement TypeScript types**
 
   - **Context:** PLAN.md Section 3, Types (`src/types/index.ts`)
   - **Action:**
